@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+     <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('/static/images/ProductBg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #ffffff;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+
+        }
+
+         /* Style for image preview container */
+        .image-preview-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            max-width: 150px; /* Adjust the width as needed */
+            text-align: center;
+            margin-top: 8px; /* Adjust the margin as needed */
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100px; /* Adjust the height as needed */
+            margin-top: 10px;
+        }
+
+         h1 {
+            text-align: center;
+            color: black;
+            }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: black;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            color: black;
+        }
+
+       .button-container {
+            text-align: center;
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Add Product</h1>
+
+
+    <form id="productForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="productName">Name of the product:</label>
+        <input type="text" id="productName" name="productName" required>
+
+        <label for="productDescription">Description:</label>
+        <textarea id="productDescription" name="productDescription" rows="4" required></textarea>
+
+         <label for="productImage">Product Image:</label>
+        <input type="file" id="productImage" name="productImage" required>
+        <!-- Container for image preview -->
+        <div class="image-preview" id="imagePreview"></div>
+
+        <label for="productGender">Gender:</label>
+        <select id="productGender" name="productGender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="unisex">Unisex</option>
+        </select>
+
+        <label for="productSize">Size:</label>
+        <input type="text" id="productSize" name="productSize" required>
+
+        <label for="productColour">Colour:</label>
+        <input type="text" id="productColour" name="productColour" required>
+
+        <label for="clothMaterial">Material:</label>
+        <input type="text" id="clothMaterial" name="clothMaterial" required>
+
+        <label for="productPrice">Price:</label>
+        <input type="number" id="productPrice" name="productPrice" min="0" required>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" required>
+
+        <label>Subcategory:</label>
+        <select name="subcategory">
+            <option disabled selected> -- </option>
+            {% for i in scat %}
+            <option value="{{i.id}}">{{i.name}}</option>
+            {% endfor %}
+        </select>
+
+
+<div class="button-container">
+        <button type="submit" value="submit">Add Product</button>
+</div>
+    </form>
+
+    <script>
+        function addProduct() {
+            // Get form data
+            const formData = new FormData(document.getElementById('productForm'));
+
+            // Convert form data to JSON object
+            const jsonObject = {};
+            formData.forEach((value, key) => {
+                jsonObject[key] = value;
+            });
+
+            // Send the JSON object to your server using AJAX or fetch API
+            // Example: You can use fetch API to send the data to your backend
+            fetch('your-backend-endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(jsonObject),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server (if needed)
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Image preview functionality
+        const productImageInput = document.getElementById('productImage');
+        const imagePreviewContainer = document.getElementById('imagePreview');
+
+        productImageInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.addEventListener('load', function () {
+                    const imagePreview = document.createElement('img');
+                    imagePreview.src = reader.result;
+                    imagePreviewContainer.innerHTML = ''; // Clear previous preview
+                    imagePreviewContainer.appendChild(imagePreview);
+                });
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        background-color:white;
+        text-align:center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .add-button-container {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .add-button {
+        background-color: #007BFF; /* Primary color */
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+<h2 style="text-align:center;margin-bottom:20px;">Courier List</h2>
+{% if c %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Company Name</th>
+            <th>Email / Phone</th>
+            <th>District</th>
+            <th>State</th>
+            <th>Courier Assign</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in c %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{p.company_name.title}}</td>
+            <td>{{p.email}}<br>ph: {{p.phone}}</td>
+            <td>{{p.district.title}}</td>
+            <td> {{ p.state.title}}</td>
+            {% if ca %}
+                {% for i in ca %}
+                    {% if i.order.id == oid %}
+                        <td><button class="btn btn-warning btn-sm">{{i.status}}</button>
+                        <a href="{% url 'courdeassign' oid p.id %}"><button class="btn btn-danger btn-sm">Cancel</button></a></td>
+                    {% else %}
+                        <td><a href="{% url 'courassign' oid p.id %}"><button class="btn btn-primary btn-sm">Assign order1</button></a></td>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+            <td><a href="{% url 'courassign' oid p.id %}"><button class="btn btn-primary btn-sm">Assign order</button></a></td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h2 style="text-align:center;color:red;">No couriers yet..!</h2>
+{% endif %}
+{% endblock %}

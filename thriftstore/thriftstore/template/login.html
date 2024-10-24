@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            background-image:url('https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+        }
+
+        .form-container {
+            background-color: rgba(13,110,253,.25); ;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+        }
+
+        #button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .seller {
+            background-color: #007bff; /* Default background color for seller */
+            color: white; /* Default text color for seller */
+        }
+
+        .customer {
+            background-color: green; /* Background color for customer */
+            color: white; /* Text color for customer */
+            transform: translateX(60px); /* Move the button to the right */
+        }
+
+        .seller.customer {
+            transform: translateX(60); /* Move the button back to the left */
+            }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-in-out;
+            background-color: #007bff;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+    <div class="column" style="margin-top:70px;" id="loginColumn" onclick="focusColumn('loginColumn')">
+        <h2 style="text-align:center;">Login Form</h2>
+        <center>
+        <div class="form-container" id="loginForm">
+            <form action="" method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label><br>
+                <input type="text" id="username" name="username"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password"><br><br>
+                <label style="font-size: 14px; margin-top: 10px; display: block;">Choose Your Role:</label>
+            <button type="button" id="button" class="seller" style="margin-top:5px;margin-right:90px;" onclick="toggleRole()">Seller</button>
+            <!-- Hidden input field for role -->
+            <input type="hidden" id="userRole" name="userRole" value="seller"><br><br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+            </center>
+    </div>
+  <script>
+
+      function toggleRole() {
+            var button = document.getElementById('button');
+            var hiddenInput = document.getElementById('userRole');
+            button.classList.toggle('seller');
+            button.classList.toggle('customer');
+            if (button.classList.contains('seller')) {
+                button.innerText = 'Seller';
+                hiddenInput.value = 'seller';
+            } else {
+                button.innerText = 'Customer';
+                hiddenInput.value = 'customer';
+             }
+}
+
+
+  </script>
+
+
+{% endblock %}
+
+
+

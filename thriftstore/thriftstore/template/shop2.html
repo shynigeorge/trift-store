@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<br>
+
+<!--Collection Box slider-->
+<!--End Collection Box slider-->
+
+<!--Logo Slider-->
+{% if prod %}
+{% include 'logoslider.html' %}
+<h1 style="text-align:center;">Search Result</h1>
+<!--End Logo Slider-->
+
+<!--Featured Product-->
+{% include 'featuredproducts.html' %}
+<!--End Featured Product-->
+{% else %}
+<h1 style="text-align:center;margin-top:200px;">No search results found...!</h1>
+{% endif %}
+
+<!--Latest Blog-->
+
+<!--End Latest Blog-->
+
+<!--Store Feature-->
+
+{% endblock %}

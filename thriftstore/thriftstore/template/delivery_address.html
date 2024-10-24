@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+input{
+border:1px solid black;
+margin-top:10px;
+}
+<center>
+<div class="column" id="detailsColumn" style="width:500px;margin-top:90px;">
+    <h1 style="text-align:center;">Confirm your delivery address</h1><br>
+    <div class="form-container" id="detailsForm">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <input type="text" id="address" name="address" value="{{delad.housename}}" placeholder="Enter your address">
+
+            <input type="text" id="landmark" name="landmark" value="{{delad.landmark}}" placeholder="Enter your landmark">
+
+            <input type="text" id="city" name="city" value="{{delad.city}}" placeholder="Enter your city">
+
+            <input type="text" id="district" name="district" value="{{delad.district}}" placeholder="Enter your district"><br>
+
+            <input type="text" id="state" name="state" value="{{delad.state}}" placeholder="Enter your state"><br>
+
+            <input type="text" id="pin" name="pin" value="{{delad.pincode}}"  placeholder="Enter your pincode"><br><br>
+            <input type="submit" style="background-color:orange;color:black;" value="Submit">
+        </form>
+    </div>
+</div>
+
+</center>
+
+
+{% endblock %}

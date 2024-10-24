@@ -1,0 +1,17 @@
+{% load static %}
+        <div class="collection-box section">
+        	<div class="container-fluid">
+				<div class="collection-grid">
+                    {% for i in sct %}
+                        <div class="collection-grid-item">
+                            <a href="{% url 'catview' i.id %}" class="collection-grid-item__link">
+                                <img src="{{i.subimage.url}}" alt="Fashion" height="350px;"/>
+                                <a href="{% url 'catview' i.id %}"><div class="collection-grid-item__title-wrapper">
+                                    <h3 class="collection-grid-item__title btn btn--secondary no-border">{{i.name}}</h3>
+                                </div></a>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    </div>
+            </div>
+        </div>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div id="content_quickview" style="margin-top:60px;">
+    	<div class="modal-dialog">
+        	<div class="modal-content">
+            	<div class="modal-body">
+                    <div id="ProductSection-product-template" class="product-template__container prstyle1">
+                <div class="product-single">
+                <!-- Start model close -->
+                <!-- End model close -->
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="product-details-img">
+                            <div class="pl-14">
+                                <img src="{{p.product_Image.url}}" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                            <div class="product-single__meta">
+                                <h1>{{p.brand}}</h1>
+                                <h2 class="product-single__title">{{p.name}}</h2>
+                                <div class="prInfoRow">
+                                    <div class="product-stock"> <span class="instock "></span> <span class="outstock hide"></span> </div>
+                                    <div style="font-size:15px;margin-right:300px;">{% if p.size != 'none' %}<b>Size :</b><span>{{p.size}}</span>{% else %} {% endif %}</div>
+                                </div>
+                                <p class="product-single__price product-single__price-product-template">
+                                    <span class="visually-hidden">Price</span>
+                                    <s id="ComparePrice-product-template"><span class="money"></span></s>
+                                    <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                                        <span id="ProductPrice-product-template"><span style="color:green;">₹ {{p.price}}</span></span>
+                                    </span>
+                                </p>
+                                <div class="product-single__description rte" style="width:500px;">
+                                    {{p.description}}
+                                </div>
+                                <div>
+                                    <span><b>Color :</b> {{p.color}}</span><br>
+                                    <span><b>Material :</b>{{p.cloth_Material}}</span><br>
+                                </div><br>
+
+
+
+                                <!-- Product Action -->
+                                <div class="product-action clearfix">
+                                    <div class="product-form__item--quantity">
+                                        <div class="wrapQtyBtn">
+
+                                        </div>
+                                    </div>
+                                    <div class="product-form__item--submit">
+                                    {% if p.sold == True %}
+                                        <button type="button" name="add" style="background-color:red;" class="btn product-form__cart-submit">
+                                        <span>Not Available</span>
+                                        </button>
+                                    {% else %}
+                                    <a href="{% url 'addcart' p.id %}"><button type="button" name="add" class="btn product-form__cart-submit">
+                                        <span>Add to cart</span>
+                                    </button></a>
+                                    <button type="button" name="add" class="btn btn-warning" style="background-color:yellow;color:black;margin-top:8px;">
+                                        <span>Buy Now</span>
+                                    </button>
+                                    {% endif %}
+
+                                    </div>
+                                </div>
+                                <!-- End Product Action -->
+                            </form>
+                            <div class="display-table shareRow">
+                                    <div class="display-table-cell">
+
+                                    </div>
+                                </div>
+                        </div>
+                </div>
+            </div>
+                <!--End-product-single-->
+                </div>
+            </div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+
+{% endblock %}

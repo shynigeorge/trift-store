@@ -1,0 +1,67 @@
+
+<div class="productSlider row">
+    {% for i in prodall %}
+
+    <div class="col-3 item" >
+        <!-- start product image -->
+        <div class="product-image">
+            <!-- start product image -->
+            <a href="{% url 'productdesc' i.id %}">
+                <!-- image -->
+                <img class="primary"  src="{{i.product_Image.url}}" alt="image" title="product" height="300px;">
+                <!-- End image -->
+                <!-- Hover image -->
+                <img class="hover blur-up lazyload"  src="{{i.product_Image.url}}" alt="image" height="300px; title="product">
+                <!-- End hover image -->
+                <!-- product label -->
+                {% if i.sold == True %}
+                <div class="product-labels rectangular"><span class="lbl on-sale">Sold Out</span></div>
+                {% endif %}
+                <!-- End product label -->
+            </a>
+            <!-- end product image -->
+
+            <!-- countdown start -->
+            <!-- countdown end -->
+
+            <!-- Start product button -->
+            <form class="variants add" action="#" method="post">
+                <a href="{% url 'addcart' i.id %}"><button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button></a>
+            </form>
+            <div class="button-set">
+
+                <div class="wishlist-btn">
+
+                </div>
+                <div class="compare-btn">
+                </div>
+            </div>
+            <!-- end product button -->
+        </div>
+        <!-- end product image -->
+        <!--start product details -->
+        <div class="product-details text-center">
+            <!-- product name -->
+            <div class="product-name">
+                <a href="{% url 'productdesc' i.id %}">{{i.name|truncatechars:20}}</a>
+            </div>
+            <!-- End product name -->
+            <!-- product price -->
+            <div class="product-price">
+                <span class="old-price"></span>
+                <span class="price">Rs {{i.price}}</span>
+            </div>
+            <!-- End product price -->
+
+            <div class="product-review">
+            </div>
+            <!-- Variant -->
+            <ul class="swatches">
+            </ul>
+            <!-- End Variant -->
+        </div>
+        <!-- End product details -->
+    </div>
+
+    {% endfor %}
+</div>

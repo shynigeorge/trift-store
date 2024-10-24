@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sales Report</title>
+    <style type="text/css">
+        table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        background-color:white;
+        text-align:center;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .add-button-container {
+        text-align: right;
+        margin-bottom: 20px;
+    }
+
+    .add-button {
+        background-color: #007BFF; /* Primary color */
+        color: #fff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 5px;
+            background-color: #fff;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 5px;
+            vertical-align: top;
+            border-top: 1px solid #000;
+            text-align: center;
+            font-size:12px;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #000;
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #000;
+        }
+        td{
+            font-size:13px;
+        }
+
+        .table .table {
+            background-color: #fff;
+        }
+
+        .list-group {
+            display: block;
+            width: 100%;
+            list-style: none;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .list-group p {
+            width: 100%;
+            height: 20px;
+            line-height: 20px;
+            list-style: none;
+            font-size: 1.1em;
+        }
+
+    </style>
+</head>
+<body>
+
+{% if orders %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <img src="static/images/bellepdf.png" alt="no image" width="50px;" height="20px;">
+            <h3>Completed Sales Report</h3>
+        </div>
+
+        <div class="list-group">
+            <p style="text-align:center;font-size:16px;"><b>Sales Report</b></p>
+        </div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Products</th>
+            <th>Date</th>
+            <th>Price</th>
+            <th>Courier Assign</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for p in orders %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{p.user}}</td>
+            <td><ol>{% for j in p.products.all %}<li>{{j.name}}</li>{% endfor %}</ol></td>
+            <td>{{ p.date }}</td>
+            <td>Rs {{ p.total_amount }}</td>
+            {% if p.delivered == False %}
+            {% if ca %}
+
+                    {% if p.id in ca %}
+                        {% for b in cas %}
+                        {% if b.order.id == p.id %}
+                        <td><button class="btn btn-warning btn-sm">{{b.status}}</button>
+                         {% endif %}
+                         {% endfor %}
+                        <a href="{% url 'cadel' p.id %}"><button class="btn btn-danger btn-sm">Cancel</button></a></td>
+
+                    {% else %}
+                        <td><a href="{% url 'coutable' p.id %}"><button class="btn btn-success btn-sm">Assign</button></a></td>
+                    {% endif %}
+            {% else %}
+                <td><a href="{% url 'coutable' p.id %}"><button class="btn btn-success btn-sm">Assign</button></a></td>
+            {% endif %}
+            {% else %}
+            <td><button class="btn btn-light btn-sm" style="border:1px solid green;">Order Completed</button><br>
+            {% for b in cas %}
+            {% if b.order.id == p.id %}
+            <b>{{b.delivery_date}}</b></td>
+            {% endif %}
+            {% endfor  %}
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tr>
+    </tbody>
+</table>
+
+{% else %}
+<h2 style="text-align:center;color:red;">No orders yet..!</h2>
+    </div>
+{% endif %}
+           <br> <span style="font-size:15px;text-align:center;">Total</span>
+        <span style="margin-left:400px;font-size:15px;">Rs {{tot}}</span>
+
+</body>
+</html>

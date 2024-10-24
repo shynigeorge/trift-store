@@ -1,0 +1,77 @@
+{% load static %}
+
+<div class="row">
+{% if request.user.is_superuser or request.user.is_staff %}
+  <div class="col-md-4 stretch-card grid-margin">
+    <a href="{% url 'lorders' %}">
+    <div class="card bg-gradient-danger card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3"><i class="mdi mdi-chart-line mdi-24px float-right"></i>
+        </h4>
+        <h2 class="mb-5" style="text-decoration: none; color:white;">Latest Orders</h2>
+        <h6 class="card-text"></h6>
+      </div>
+      </a>
+    </div>
+  </div>
+{% elif status == 'sel' %}
+ <div class="col-md-4 stretch-card grid-margin">
+    <a href="{% url 'myprodorders' %}">
+    <div class="card bg-gradient-danger card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3"><i class="mdi mdi-chart-line mdi-24px float-right"></i>
+        </h4>
+        <h2 class="mb-5" style="text-decoration: none; color:white;">My Latest Orders</h2>
+        <h6 class="card-text"></h6>
+      </div>
+      </a>
+    </div>
+  </div>
+{% else %}
+ <div class="col-md-4 stretch-card grid-margin">
+    <a href="{% url 'courierorder' %}">
+    <div class="card bg-gradient-danger card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3"><i class="mdi mdi-chart-line mdi-24px float-right"></i>
+        </h4>
+        <h2 class="mb-5" style="text-decoration: none; color:white;">Latest Orders</h2>
+        <h6 class="card-text"></h6>
+      </div>
+      </a>
+    </div>
+  </div>
+
+{% endif %}
+{% if status == 'sel' %}
+{% else %}
+  <div class="col-md-4 stretch-card grid-margin">
+    <a href="{% url 'confirmorderlist' %}">
+    <div class="card bg-gradient-info card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3"><i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+        </h4>
+        <h2 class="mb-5" style="color:white;">Confirmed Orders</h2>
+        <h6 class="card-text"></h6>
+      </div>
+       </a>
+    </div>
+  </div>
+  <div class="col-md-4 stretch-card grid-margin">
+    <a href="{% url 'completedorderslist' %}">
+    <div class="card bg-gradient-success card-img-holder text-white">
+      <div class="card-body">
+        <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+        <h4 class="font-weight-normal mb-3"><i class="mdi mdi-diamond mdi-24px float-right"></i>
+        </h4>
+        <h2 class="mb-5" style="color:white;">Completed Orders</h2>
+        <h6 class="card-text"></h6>
+      </div>
+      </a>
+    </div>
+  </div>
+</div>
+{% endif %}

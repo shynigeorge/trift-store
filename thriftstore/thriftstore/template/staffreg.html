@@ -1,0 +1,118 @@
+{% extends 'adminbase.html' %}
+
+{% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    table {
+        width: 60%;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: 20px auto; /* Center the table horizontally */
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    input {
+        width: calc(100% - 30px);
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        margin-top: 4px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    button {
+        width: calc(100% - 30px);
+        padding: 12px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 14px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>Staff Registration Form</h2>
+<form method="post">
+    {% csrf_token %}
+<table>
+    <tr>
+        <td>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="um" required autofocus>
+
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="nm" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="em" required>
+
+            <label for="phone">Phone No:</label>
+            <input type="text" id="phone" name="ph" maxlength="10" minlength="10" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gen" required>
+                <option value="none">None</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="password" style="margin-top:20px;">Password:</label>
+            <input type="password" id="password" name="psd" required>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="cpsd" required>
+        </td>
+        <td>
+            <label for="housename">House Name:</label>
+            <input type="text" id="housename" name="hn" required>
+
+            <label for="street">Street:</label>
+            <input type="text" id="street" name="st" required>
+
+            <label for="district">District:</label>
+            <input type="text" id="district" name="dis" required>
+
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required>
+
+            <button type="submit">Register</button>
+        </td>
+    </tr>
+</table>
+</form>
+{% endblock %}

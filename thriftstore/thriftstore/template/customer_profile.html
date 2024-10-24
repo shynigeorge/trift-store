@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        /* CSS Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #7D9E94; /* Pista color */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(125, 158, 148, 0.5); /* Background glow effect */
+            animation: fadeIn 0.5s ease-out;
+            overflow: hidden;
+            position: relative;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 4px solid #3498db;
+            transition: border-color 0.3s ease-in-out;
+        }
+        .profile-image:hover {
+            border-color: #e74c3c;
+        }
+        .profile-details {
+            text-align: left;
+            animation: slideIn 0.5s ease-out;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .profile-details div {
+            margin-bottom: 10px;
+        }
+        .profile-details label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .profile-details input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .edit-button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            position: relative;
+            z-index: 1;
+            display: block;
+            margin: 0 auto;
+        }
+        .edit-button:hover {
+            background-color: #2980b9;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        input,select{
+        background-color:white;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container" style="margin-top:60px;">
+        <img src="{{u.cimage.url}}" alt="Customer Image" class="profile-image">
+        <div class="container" style="text-align:center;width:150px;">
+            {% if u.is_seller == 'customer' %}
+            <button style="background-color:blue;padding:10px;">customer</button>
+            {% else %}
+            <button style="background-color:orange;padding:10px;">seller</button>
+            {% endif %}
+        </div>
+        <form method="post">
+            {% csrf_token %}
+
+        <div class="profile-details">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="uname" value="{{u.user.username}}">
+            </div>
+            <div>
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="fn" value="{{u.fname}}">
+            </div>
+            <div>
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="ln" value="{{u.lname}}">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="em" value="{{u.email}}">
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone"  name="ph" value="+91{{u.phone}}">
+            </div>
+            <div>
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gen" value="{{u.gender}}">
+                    <option selected value="{{u.gender}}">{{u.gender}}</option>
+                    <option value="male" >Male</option>
+                    <option value="female">Female</option>
+                    <option value="none">None</option>
+                </select>
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="datetime" name="dob" id="dob" value="{{u.dob | date:'Y-m-d' }}">
+            </div>
+        </div>
+        <button type="submit" class="edit-button bg-success">Save</button>
+    </div>
+    </form>
+{% endblock %}

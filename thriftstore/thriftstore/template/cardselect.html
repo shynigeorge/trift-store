@@ -1,0 +1,21 @@
+        <div class="field-container">
+            <label for="name">Name</label>
+            <input id="name" maxlength="20" name="owner" type="text" value="{{cd.name}}" oninput="cardname()">
+        </div>
+        <div class="field-container">
+            <label for="cardnumber">Card Number</label>
+            <input id="cardnumber" type="text" name="cnum" pattern="[0-9]*" value="{{cd.number}}"  maxlength="16" min="16" inputmode="numeric" oninput="cardnum()" >
+            <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+
+            </svg>
+        </div>
+        <div class="field-container">
+            <label for="expirationdate">Expiration (mm/yy)</label>
+            <input id="expirationdate" type="month" pattern="[0-9]*" value="{{cd.expdate}}" name="exp" inputmode="numeric" oninput="expire()">
+        </div>
+        <div class="field-container">
+            <label for="securitycode">CVV</label>
+            <input id="securitycode" type="text" name="cvv" pattern="[0-9]*" value="" maxlength="3" minlength="3" inputmode="numeric"><br><br>
+            <button type="submit" style="background-color:#03A9F4;width:300px;height:40px;">Continue</button>
+        </div>
